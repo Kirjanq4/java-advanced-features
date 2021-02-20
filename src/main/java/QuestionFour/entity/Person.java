@@ -2,7 +2,7 @@ package QuestionFour.entity;
 
 import java.time.LocalDate;
 
-public class Person {
+abstract public class Person {
 
     private String firstName;
     private String lastName;
@@ -49,7 +49,7 @@ public class Person {
         this.vehicle = vehicle;
     }
 
-    public LocalDate getVehiclePurchaseDate() {
+    public LocalDate getVehiclePurchaseDate(LocalDate now) {
         return vehiclePurchaseDate;
     }
 

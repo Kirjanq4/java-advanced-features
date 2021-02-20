@@ -1,10 +1,7 @@
 package QuestionFour;
 
 import QuestionFour.constants.Constants;
-import QuestionFour.entity.Bike;
-import QuestionFour.entity.Car;
-import QuestionFour.entity.Person;
-import QuestionFour.entity.Vehicle;
+import QuestionFour.entity.*;
 import QuestionFour.exception.DatePatternMismatchException;
 import QuestionFour.exception.IncorrectCommandException;
 import QuestionFour.utils.DateParserUtils;
@@ -16,11 +13,11 @@ public class Application {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
-        //“John Smith born 3/24/1984”
+        //“John Smith born 03/24/1984”
         String[] userInfoArray = userInput.split(Constants.SPACE);
 
         if (userInfoArray.length == 4) {
-            LocalDate dateOfBirth = null;
+            LocalDate dateOfBirth;
             if (DateParserUtils.matches(userInfoArray[3])) {
                 dateOfBirth = DateParserUtils.formatDateFromString(userInfoArray[3]);
             } else {
@@ -29,7 +26,7 @@ public class Application {
 
             String firstName = userInfoArray[0];
             String lastName = userInfoArray[1];
-            Person person = new Person(
+            PersonManager person = new PersonManager(
                     firstName,
                     lastName,
                     dateOfBirth);
@@ -39,24 +36,14 @@ public class Application {
             int choice = in.nextInt();
             switch (choice) {
                 case 1:
-                    Vehicle car = new Car();
-                    person.setVehicle(car);
-                    person.setVehiclePurchaseDate(LocalDate.now());
+                    person.typeAndDateOfPurchase(new Car());
                     break;
                 case 2:
-                    Vehicle bike = new Bike();
-                    person.setVehicle(bike);
-                    person.setVehiclePurchaseDate(LocalDate.now());
+                    person.typeAndDateOfPurchase(new Bike());
                     break;
                 default:
                     System.out.println("Incorrect option");
             }
-
-
-            System.out.println(person.toString());
-            System.out.println("Bought "
-                    + person.getVehicle().getType().name()
-                    + " on " + person.getVehiclePurchaseDate());
         } else {
             throw new IncorrectCommandException();
         }
